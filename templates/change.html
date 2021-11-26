@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Register
+    Change
 {% endblock %}
 
 {% block main%}
@@ -15,17 +15,12 @@
     </div>
 
     <!-- Login Form -->
-    <form action="/register" method="POST">
-      <input type="text" id="login" class="fadeIn second" name="username" placeholder="Usuario">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña">
+    <form action="/change" method="POST">
+      <input type="password" id="password" class="fadeIn third" name="oldpassword" placeholder="Contraseña Anterior">
+      <input type="password" id="confirmation" class="fadeIn third" name="newpassword" placeholder="Contraseña Nueva">
       <input type="password" id="confirmation" class="fadeIn third" name="confirmation" placeholder="Confirmar Contraseña">
-      <input type="submit" class="fadeIn fourth" value="Registrarse">
+      <input type="submit" class="fadeIn fourth" value="Cambiar Contraseña">
     </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="/login">Iniciar Sesión</a>
-    </div>
 
   </div>
 </div>

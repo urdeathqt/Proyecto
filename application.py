@@ -102,14 +102,19 @@ def register():
             flash("Las contraseñas no son las mismas")
             return render_template("register.html")
 
-        hash = generate_password_hash(request.form.get("password"))
-        new_user_id = db.execute("INSERT INTO usuarios (username, contraseña) VALUES(:username, :hash)",
-                                 username=request.form.get("username"),
-                                 hash=hash)
+        # Consulta en la base de datos para nombre de usuario
+        rows = db.execute("SELECT * FROM usuarios WHERE username = :username",
+                          username=request.form.get("username"))
 
-        if not new_user_id:
-            flash("Usuario ya usado")
+        # Confirmar que el usuario no exista
+        if len(rows) != 0:
+            flash("Usuario Existente")
             return render_template("register.html")
+
+        hash = generate_password_hash(request.form.get("password"))
+
+        new_user_id = db.execute("INSERT INTO usuarios (username, contraseña) VALUES (:username, :hash)",
+                   username=request.form.get("username"), hash=hash)
 
         session["user_id"] = new_user_id
 
@@ -120,3 +125,49 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route("/change", methods=["GET", "POST"])
+@login_required
+def change():
+    """"Cambiar contraseña"""
+
+    if request.method == "POST":
+
+        if not request.form.get("oldpassword"):
+            flash("Ingrese su contraseña")
+            return render_template("change.html")
+
+        if not request.form.get("newpassword"):
+            flash("Ingrese una nueva contraseña")
+            return render_template("change.html")
+
+        if not request.form.get("confirmation"):
+            flash("Confirme la contraseña")
+            return render_template("change.html")
+
+        if not request.form.get("newpassword") == request.form.get("confirmation"):
+            flash("Las contraseñas no coinciden")
+            return render_template("change.html")
+
+        userid = session["user_id"]
+
+        rows = db.execute("SELECT * FROM usuarios WHERE id = :id",
+                          id=userid)
+
+        if not check_password_hash(rows[0]["contraseña"], request.form.get("oldpassword")):
+            flash("Contraseña actual incorrecta")
+            return render_template("change.html")
+
+        if check_password_hash(rows[0]["contraseña"], request.form.get("newpassword")):
+            flash("La contraseña nueva no puede ser la misma")
+            return render_template("change.html")
+
+        hashpassword = generate_password_hash(request.form.get("newpassword"))
+
+        db.execute("UPDATE usuarios SET contraseña = :hashpass WHERE id = :id",
+                   hashpass=hashpassword, id=userid)
+
+        flash("Contraseña cambiada")
+        return redirect("/")
+
+    else:
+        return render_template("change.html")
