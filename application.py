@@ -1,5 +1,6 @@
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify
+import requests
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
@@ -171,3 +172,36 @@ def change():
 
     else:
         return render_template("change.html")
+
+
+@app.route("/agregarjuego", methods=["GET", "POST"])
+@login_required
+def agregarjuego():
+
+    if request.method == "POST":
+        nom_juego = request.form.get("juego")
+
+        juegojson = requests.get(f"https://api.rawg.io/api/games/{nom_juego}?key=0650e803ab5149dbb7d94030438d7d7a").json()
+        nombre = juegojson.get('name')
+
+        if nombre == None:
+            flash(f"No se encontró el juego con el nombre: {nom_juego}", "error")
+            return render_template("agregarjuego.html")
+
+        else:
+            rows = db.execute("SELECT * FROM publicaciones WHERE nombre = :nombre", nombre=nombre)
+
+            # Confirmar que el usuario no exista
+            if len(rows) != 0:
+                flash("Nombre ya existe", "error")
+                return render_template("agregarjuego.html")
+
+            db.execute("INSERT INTO publicaciones (nombre) VALUES (:nombre)", nombre=nombre)
+            flash("Nombre agregado", "exito")
+            return redirect("/")
+
+
+
+    else:
+        return render_template("agregarjuego.html")
+

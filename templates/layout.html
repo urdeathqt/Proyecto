@@ -22,18 +22,18 @@
     </head>
 
     <body>
-
+        {% if session.user_id %}
         <nav class="navbar navbar-dark bg-primary">
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/">Gaming hook</a>
             <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
-                {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="#">#</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">nepe</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">de burrito</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">no se</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">prueba</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">whatever</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://ide-697cc91446b04cf7ab61b65fe5fc2b99-8080.cs50.ws/agregarjuego">Agregar juego</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt2">
                         <li class="nav-item"><a class="nav-link" href="/change">Cambiar Contraseña</a></li>
@@ -42,22 +42,19 @@
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                     </ul>
-                {% else %}
-                    <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
-                    </ul>
                 {% endif %}
             </div>
         </nav>
 
         {% if get_flashed_messages() %}
-            <header>
-                <div class="alert alert-primary border text-center" role="alert">
-                    {{ get_flashed_messages() | join(" ") }}
-                </div>
-            </header>
-        {% endif %}
+  <header>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="{{ category }} text-center p-3">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+  </header>
+  {% endif %}
 
         <main class="container p-5">
             {% block main %}{% endblock %}

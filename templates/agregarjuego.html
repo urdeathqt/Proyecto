@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Agregar juego
+{% endblock %}
+
+{% block main %}
+    <div class="wrapper fadeInDown">
+      <div class="formContent">
+
+    <form action="/agregarjuego" method="post">
+        <input type="text" placeholder="Nombre del juego" name="juego" >
+         <input type="submit" class="fadeIn fourth" value="Agregar juego">
+    </form>
+
+      </div>
+    </div>
+
+{% endblock %}

@@ -41,7 +41,7 @@ h2 {
   padding: 20px;
 }
 
-#formContent {
+.formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   background: #fff;
@@ -55,7 +55,7 @@ h2 {
   text-align: center;
 }
 
-#formFooter {
+.formFooter {
   background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
   padding: 25px;
@@ -259,5 +259,21 @@ input[type=text]:placeholder {
 
 #icon {
   width:60%;
+}
+
+.exito
+{
+  background-color: rgb(158, 206, 158);
+  color: white;
+  border-style: none;
+  font-weight: bold;
+}
+
+.error
+{
+  background-color: rgb(195, 112, 112);
+  color: white;
+  border-style: none;
+  font-weight: bold;
 }
 
