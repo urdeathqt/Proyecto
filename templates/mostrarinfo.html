@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+{% if publi %}
 
     <div>
 
@@ -17,9 +18,7 @@
             <h2>Plataformas: </h2>
             {% for i in publi['platforms'] %}
 
-
             <h2>{{ i['platform']['name'] }} </h2>
-
 
             {% endfor %}
             <br />
@@ -29,9 +28,20 @@
         </div>
 
         <div class="comunidad">
-
+            {% for consul in consul %}
+            <div>
+                <h3>{{consul["username"]}}</h3>
+                <p>{{consul["comentario"]}}</p>
+            </div>
+            {% endfor %}
+            <form action="{{ publi['id'] }}" method="post">
+                <h2>¿Qué opinas de este videojuego?</h2>
+                <textarea name="comentario" id="comentario" cols="100" rows="2" placeholder="Escribe un comentario:" required></textarea>
+                <input type="submit" class="fadeIn fourth" value="Comentar">
+            </form>
         </div>
 
     </div>
 
+{% endif %}
 {% endblock %}

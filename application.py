@@ -47,6 +47,7 @@ def buscar():
     if request.method == "POST":
         if not request.form.get("juego"):
             flash("Ingrese un nombre de juego para buscar")
+
             return render_template("buscar.html")
         else:
             nombre = request.form.get("juego")
@@ -54,6 +55,7 @@ def buscar():
             busquedas = []
 
             for juego in juegos:
+
                 busquedas.append(requests.get(f"https://api.rawg.io/api/games/{juego['id_api']}?key=0650e803ab5149dbb7d94030438d7d7a").json())
 
             return render_template("buscar.html", busquedas=busquedas)
@@ -105,11 +107,23 @@ def login():
 @login_required
 def mostrarinfo(id):
 
+    id_public = db.execute("SELECT id FROM publicaciones WHERE id_api = :id", id=id)[0]
+
     if request.method == "GET":
+        consul = db.execute ("""SELECT username, comentario FROM comentarios as c
+            inner join usuarios as u
+            on c.id_usuario = u.id
+            WHERE c.id_publicacion = :id_publicacion""", id_publicacion=id_public["id"])
+
         publi = requests.get(f"https://api.rawg.io/api/games/{id}?key=0650e803ab5149dbb7d94030438d7d7a").json()
 
-        return render_template("mostrarinfo.html", publi=publi)
+        return render_template("mostrarinfo.html", publi=publi, consul=consul)
 
+    if request.method == "POST":
+
+        db.execute("INSERT INTO comentarios (comentario, id_usuario, id_publicacion) VALUES (:comentario, :id_usuario, :id_publicacion)", comentario=request.form.get("comentario"), id_usuario=session["user_id"], id_publicacion=id_public["id"])
+
+        return redirect(id)
 
 @app.route("/logout")
 def logout():
@@ -243,4 +257,6 @@ def agregarjuego():
 
     else:
         return render_template("agregarjuego.html")
+
+
 

@@ -36,6 +36,12 @@
 
         {% endfor %}
 
+        {% endif %}
+
+    {% if request.form.get("juego") and not busquedas %}
+
+        <h2>Ningun resultado para: {{ request.form.get("juego") }}</h2>
+
     {% endif %}
 
 
