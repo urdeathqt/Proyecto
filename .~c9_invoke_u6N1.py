@@ -49,17 +49,11 @@ def buscar():
             flash("Ingrese un nombre de juego para buscar")
             return render_template("buscar.html")
         else:
-            nombre = request.form.get("juego")
-            juegos = db.execute(f"SELECT * FROM publicaciones WHERE nombre like '%{nombre}%'")
-            busquedas = []
-
-            for juego in juegos:
-                busquedas.append(requests.get(f"https://api.rawg.io/api/games/{juego['id_api']}?key=0650e803ab5149dbb7d94030438d7d7a").json())
-
-            return render_template("buscar.html", busquedas=busquedas)
-
+            nombre = request.form.get
+            juegos = db.execute("SELECT * FROM publicaciones WHERE nombre like '%' +  ")
     else:
         return render_template("buscar.html")
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -100,15 +94,6 @@ def login():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
-
-@app.route("/mostrarinfo/<id>", methods=["GET", "POST"])
-@login_required
-def mostrarinfo(id):
-
-    if request.method == "GET":
-        publi = requests.get(f"https://api.rawg.io/api/games/{id}?key=0650e803ab5149dbb7d94030438d7d7a").json()
-
-        return render_template("mostrarinfo.html", publi=publi)
 
 
 @app.route("/logout")
@@ -223,7 +208,6 @@ def agregarjuego():
 
         juegojson = requests.get(f"https://api.rawg.io/api/games/{nom_juego}?key=0650e803ab5149dbb7d94030438d7d7a").json()
         nombre = juegojson.get('name')
-        id_api = juegojson.get('id')
 
         if nombre == None:
             flash(f"No se encontró el juego con el nombre: {nom_juego}", "error")
@@ -237,9 +221,11 @@ def agregarjuego():
                 flash("Nombre ya existe", "error")
                 return render_template("agregarjuego.html")
 
-            db.execute("INSERT INTO publicaciones (nombre, id_api) VALUES (:nombre, :id_api)", nombre=nombre, id_api=id_api)
+            db.execute("INSERT INTO publicaciones (nombre) VALUES (:nombre)", nombre=nombre)
             flash("Nombre agregado", "exito")
             return redirect("/")
+
+
 
     else:
         return render_template("agregarjuego.html")

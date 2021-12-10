@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buscar
+{% endblock %}
+
+{% block main %}
+
+    <div >
+        <form action="/buscar" method="POST" class="form-inline mt-5 justify-content-center">
+            <input type="text" id="juego" class="fadeIn second" name="juego" placeholder="Nombre del juego">
+            <input type="submit" class="fadeIn fourth" align="center" value="buscar">
+        </form>
+    </div>
+
+    {% if request.form.get("juego") and busquedas %}
+
+        <h2>Resultados de la busqueda: {{ request.form.get("juego") }}</h2>
+
+        {% for publi in busquedas %}
+
+            <div class="publi">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="tarjeta">
+                                <img class="imagen" src="{{ publi['background_image'] }}">
+                            <h5 class="card-title">{{ publi['name_original'] }}</h5>
+                                <p>{{ publi['description_raw'] }}</p>
+                            <a href="/mostrarinfo/{{ publi['id'] }}" class="btn btn-primary">Ver más información</a>
+                          </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+{% endblock %}

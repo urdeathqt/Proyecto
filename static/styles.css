@@ -31,6 +31,11 @@ h2 {
 
 /* STRUCTURE */
 
+.imagen {
+  width: 10rem;
+  height: 10rem;
+}
+
 .wrapper {
   display: flex;
   align-items: center;

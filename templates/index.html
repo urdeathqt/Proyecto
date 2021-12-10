@@ -6,4 +6,28 @@
 
 {% block main %}
 
+<table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha de Lanzamiento</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for publi in publis %}
+            <tr>
+                <td>{{ publi['name_original'] }}</td>
+                <td>{{ publi['released'] }}</td>
+                <td>{{ publi['description_raw'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        <tfoot>
+
+        </tfoot>
+    </table>
+
 {% endblock %}

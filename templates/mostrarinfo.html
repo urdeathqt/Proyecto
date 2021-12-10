@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Mostrar Información
+{% endblock %}
+
+{% block main %}
+
+    <div>
+
+        <div class="info">
+            <img src="{{ publi['background_image'] }}">
+            <h1>{{ publi['name_original'] }}</h1>
+            <p>{{ publi['description_raw'] }}</p>
+            <h2>Fecha de lanzamiento: {{ publi['released'] }}</h2>
+            <br />
+            <h2>Plataformas: </h2>
+            {% for i in publi['platforms'] %}
+
+
+            <h2>{{ i['platform']['name'] }} </h2>
+
+
+            {% endfor %}
+            <br />
+
+            <h2>Rating: {{ publi['rating'] }} de {{ publi['ratings_count'] }} puntuaciones</h2>
+
+        </div>
+
+        <div class="comunidad">
+
+        </div>
+
+    </div>
+
+{% endblock %}
