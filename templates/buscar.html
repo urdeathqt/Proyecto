@@ -19,19 +19,19 @@
 
         {% for publi in busquedas %}
 
-            <div class="publi">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="tarjeta">
-                                <img class="imagen" src="{{ publi['background_image'] }}">
+            <div class="items">
+                <div class="row no-gutters">
+                        <div class="col-md-3">
+                            <img class="image-juego" src="{{ publi['background_image'] }}">
+                            </div>
+                            <div class="col-md-9 pl-5">
+                            <div class="info-juegos">
                             <h5 class="card-title">{{ publi['name_original'] }}</h5>
                                 <p>{{ publi['description_raw'] }}</p>
-                            <a href="/mostrarinfo/{{ publi['id'] }}" class="btn btn-primary">Ver más información</a>
+                            <a href="/mostrarinfo/{{ publi['id'] }}" class="btn btn-outline-info">Ver más información</a>
                           </div>
                         </div>
                     </div>
-                 </div>
             </div>
 
         {% endfor %}

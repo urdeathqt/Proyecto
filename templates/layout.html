@@ -30,9 +30,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="#">no se</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">prueba</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/buscar">Búsqueda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/buscar">Buscar juego</a></li>
                         <li class="nav-item"><a class="nav-link" href="/agregarjuego">Agregar juego</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt2">
@@ -56,9 +54,8 @@
   </header>
   {% endif %}
 
-        <main class="container p-5">
-            {% block main %}{% endblock %}
-        </main>
+  <main class="container-fluid pb-5">
+    {% block main %}{% endblock %}
 
     </body>
 

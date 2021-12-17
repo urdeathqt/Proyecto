@@ -7,7 +7,6 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-  height: 100vh;
 }
 
 a {
@@ -281,4 +280,32 @@ input[type=text]:placeholder {
   border-style: none;
   font-weight: bold;
 }
+
+.items
+{
+  padding-top: 5%;
+  padding-right: 5%;
+}
+
+.image-juego
+{
+  object-fit:cover
+  width:5rem;
+  height:12rem;
+}
+
+.info-juegos
+{
+  padding-top
+}
+
+@media only screen and (max-width: 800px) {
+    .info-juegos, .items {
+    padding-top: 10%;
+    padding-right: 1%;
+    padding-left: 1%;
+  }
+
+}
+
 

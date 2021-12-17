@@ -33,10 +33,10 @@ def index():
     publis = []
 
     juegos = db.execute(
-            "SELECT nombre FROM publicaciones")
+            "SELECT id_api FROM publicaciones")
 
     for juego in juegos:
-        publis.append(requests.get(f"https://api.rawg.io/api/games/{juego['nombre']}?key=0650e803ab5149dbb7d94030438d7d7a").json())
+        publis.append(requests.get(f"https://api.rawg.io/api/games/{juego['id_api']}?key=0650e803ab5149dbb7d94030438d7d7a").json())
 
 
     return render_template("index.html", publis=publis)
