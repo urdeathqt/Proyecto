@@ -30,6 +30,35 @@ h2 {
 
 /* STRUCTURE */
 
+.info {
+  align-items: center;
+  justify-content: center;
+}
+
+.comentar {
+  border: none;
+  background: #ceedff;
+  line-height: 2em;
+  border-radius: 10px;
+  font-size: 19px;
+  color: black;
+  cursor: pointer;
+  bottom: 25px;
+  width: 25%;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.comunidad {
+  padding: 20px;
+}
+
+.presentar {
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+}
+
 .imagen {
   width: 10rem;
   height: 10rem;
@@ -68,6 +97,13 @@ h2 {
   border-radius: 0 0 10px 10px;
 }
 
+.comentario {
+  background-color: #f6f6f6;
+  border-top: 1px solid #dce8f1;
+  padding: 25px;
+  -webkit-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+}
 
 
 /* TABS */

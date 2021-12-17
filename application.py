@@ -110,7 +110,7 @@ def mostrarinfo(id):
     id_public = db.execute("SELECT id FROM publicaciones WHERE id_api = :id", id=id)[0]
 
     if request.method == "GET":
-        consul = db.execute ("""SELECT username, comentario FROM comentarios as c
+        consul = db.execute ("""SELECT username, comentario, fecha FROM comentarios as c
             inner join usuarios as u
             on c.id_usuario = u.id
             WHERE c.id_publicacion = :id_publicacion""", id_publicacion=id_public["id"])
@@ -234,8 +234,18 @@ def agregarjuego():
 
     if request.method == "POST":
         nom_juego = request.form.get("juego")
+        nom_juego = nom_juego.strip()
+        juego = " "
 
-        juegojson = requests.get(f"https://api.rawg.io/api/games/{nom_juego}?key=0650e803ab5149dbb7d94030438d7d7a").json()
+        for letra in nom_juego:
+            if letra == " ":
+                juego += "-"
+            else:
+                juego += letra
+
+        juego = juego.strip()
+
+        juegojson = requests.get(f"https://api.rawg.io/api/games/{juego}?key=0650e803ab5149dbb7d94030438d7d7a").json()
         nombre = juegojson.get('name')
         id_api = juegojson.get('id')
 

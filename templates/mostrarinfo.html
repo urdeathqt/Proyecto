@@ -9,34 +9,42 @@
 
     <div>
 
-        <div class="info">
-            <img src="{{ publi['background_image'] }}">
+        <div>
+            <img class="presentar" src="{{ publi['background_image'] }}">
+            <hr />
             <h1>{{ publi['name_original'] }}</h1>
             <p>{{ publi['description_raw'] }}</p>
-            <h2>Fecha de lanzamiento: {{ publi['released'] }}</h2>
-            <br />
-            <h2>Plataformas: </h2>
-            {% for i in publi['platforms'] %}
+            <hr />
+            <div class="comentario">
+                <h4>Fecha de lanzamiento: {{ publi['released'] }}</h4>
+                <br />
+                <h4>Plataformas: </h4>
+                {% for i in publi['platforms'] %}
 
-            <h2>{{ i['platform']['name'] }} </h2>
+                <h4>{{ i['platform']['name'] }} </h4>
 
-            {% endfor %}
-            <br />
+                {% endfor %}
+                <br />
+                <h4>Rating: {{ publi['rating'] }} / 5 de {{ publi['ratings_count'] }} puntuaciones</h4>
 
-            <h2>Rating: {{ publi['rating'] }} de {{ publi['ratings_count'] }} puntuaciones</h2>
-
+            </div>
+        <hr />
         </div>
 
-        <div class="comunidad">
+        <div>
+            <h2>Comentarios sobre este juego: </h2>
             {% for consul in consul %}
-            <div>
-                <h3>{{consul["username"]}}</h3>
+            <div class="comentario">
+                <h5>{{consul["username"]}}: {{consul["fecha"]}}</h5>
                 <p>{{consul["comentario"]}}</p>
             </div>
             {% endfor %}
+            <hr/>
             <form action="{{ publi['id'] }}" method="post">
                 <h2>¿Qué opinas de este videojuego?</h2>
+                <br/>
                 <textarea name="comentario" id="comentario" cols="100" rows="2" placeholder="Escribe un comentario:" required></textarea>
+                <br/>
                 <input type="submit" class="fadeIn fourth" value="Comentar">
             </form>
         </div>
